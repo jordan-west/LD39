@@ -33,7 +33,11 @@ public class Antenna : MonoBehaviour
     {
         if (!triggered)
         {
-            triggerableObject.Activate();
+            if (triggerableObject != null)
+            {
+                triggerableObject.Activate();
+            }
+            
             spriteRenderer.sprite = triggeredSprite;
 
             triggered = true;
@@ -46,7 +50,11 @@ public class Antenna : MonoBehaviour
     {
         if (permanentTrigger == false)
         {
-            triggerableObject.Deactivate();
+            if (triggerableObject != null)
+            {
+                triggerableObject.Deactivate();
+            }
+            
             spriteRenderer.sprite = notTriggeredSprite;
 
             triggered = false;

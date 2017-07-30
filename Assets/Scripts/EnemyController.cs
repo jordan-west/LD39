@@ -16,16 +16,15 @@ public class EnemyController : MonoBehaviour {
     private float waitTime = 2f;
 
     [SerializeField]
-    private Vector3 startPosition;
-
-    [SerializeField]
     private Vector3 endPosition;
 
     [SerializeField]
     private bool loop = true;
 
+    private Vector3 startPosition;
+
     private bool isWalking = false;
-    private bool isAngry = true;
+    private bool isAngry = false;
     private bool isAsleep = false;
 
     private float currentTime = 0f;
@@ -39,10 +38,14 @@ public class EnemyController : MonoBehaviour {
         antennaAnimator = transform.Find("Antenna").GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        spriteRenderer.flipX = true;
-
+        startPosition = transform.position;
         timeToTake = Vector3.Distance(startPosition, endPosition) / speed;
 
+        if ((endPosition - startPosition).x < 0)
+        {
+            spriteRenderer.flipX = true;
+        }
+            
         isWalking = true;
     }
 

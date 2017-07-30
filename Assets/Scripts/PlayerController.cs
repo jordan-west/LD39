@@ -80,7 +80,15 @@ public class PlayerController : MonoBehaviour {
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePosition = new Vector3(mousePosition.x, mousePosition.y, 0);
 
-            RaycastHit2D hit = Physics2D.Raycast(antenna.position, mousePosition - antenna.position, 5f, laserLayerMask);
+            if ((mousePosition - antenna.position).x > 0 && horizontalDirection == 0)
+            {
+                spriteRenderer.flipX = false;
+            } else if ((mousePosition - antenna.position).x < 0 && horizontalDirection == 0)
+            {
+                spriteRenderer.flipX = true;
+            }
+
+            RaycastHit2D hit = Physics2D.Raycast(antenna.position, mousePosition - antenna.position, Vector3.Distance(antenna.position, mousePosition) + 0.01f, laserLayerMask);
 
             if (hit)
             {
@@ -132,7 +140,7 @@ public class PlayerController : MonoBehaviour {
     private IEnumerator FlashLaser(Vector3 laserStopPosition, float waitTime)
     {
         lineRenderer.SetPosition(1, laserStopPosition);
-        //Debug.Log(laserStopPosition);
+        Debug.Log(laserStopPosition);
         lineRenderer.startWidth = 0.05f;
         lineRenderer.endWidth = 0.05f;
 

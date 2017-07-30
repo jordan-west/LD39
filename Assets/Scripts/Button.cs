@@ -26,7 +26,11 @@ public class Button : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        triggerableObject.Activate();
+        if (triggerableObject != null)
+        {
+            triggerableObject.Activate();
+        }
+
         spriteRenderer.sprite = triggeredSprite;
     }
 
@@ -34,7 +38,11 @@ public class Button : MonoBehaviour {
     {
         if (permanentTrigger == false)
         {
-            triggerableObject.Deactivate();
+            if (triggerableObject != null)
+            {
+                triggerableObject.Deactivate();
+            }
+
             spriteRenderer.sprite = notTriggeredSprite;
         }
         
