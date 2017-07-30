@@ -41,6 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 3979943395
+    locked: 0
+  - name: Door
+    uniqueID: 3233515289
+    locked: 0
   - name: Level
     uniqueID: 3605333059
     locked: 0

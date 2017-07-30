@@ -24,6 +24,9 @@ public class Bridge : ATriggerable {
 
     public override void Activate()
     {
+        activated = true;
+        numberOfTimesActivated++;
+
         spriteRenderer.sprite = triggeredSprite;
         spriteRenderer.size = new Vector3(length, 1);
         boxCollider.enabled = true;
@@ -33,10 +36,18 @@ public class Bridge : ATriggerable {
 
     public override void Deactivate()
     {
-        spriteRenderer.sprite = notTriggeredSprite;
-        spriteRenderer.size = new Vector3(1, 1);
-        boxCollider.enabled = false;
-        boxCollider.size = new Vector2(1, boxCollider.size.y);
-        transform.position = new Vector3(transform.position.x - ((length - 1f) / 2), transform.position.y, transform.position.z);
+        numberOfTimesActivated--;
+
+        if (numberOfTimesActivated <= 0)
+        {
+            activated = false;
+            numberOfTimesActivated = 0;
+
+            spriteRenderer.sprite = notTriggeredSprite;
+            spriteRenderer.size = new Vector3(1, 1);
+            boxCollider.enabled = false;
+            boxCollider.size = new Vector2(1, boxCollider.size.y);
+            transform.position = new Vector3(transform.position.x - ((length - 1f) / 2), transform.position.y, transform.position.z);
+        }
     }
 }

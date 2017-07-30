@@ -22,8 +22,6 @@ public class Antenna : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
 
-    private bool triggered = false;
-
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -31,19 +29,14 @@ public class Antenna : MonoBehaviour
 
     public void Activate()
     {
-        if (!triggered)
+        if (triggerableObject != null)
         {
-            if (triggerableObject != null)
-            {
-                triggerableObject.Activate();
-            }
-            
-            spriteRenderer.sprite = triggeredSprite;
-
-            triggered = true;
-
-            StartCoroutine(WaitToDeactivate(triggeredTime));
+            triggerableObject.Activate();
         }
+
+        spriteRenderer.sprite = triggeredSprite;
+
+        StartCoroutine(WaitToDeactivate(triggeredTime));
     }
 
     public void Deactivate()
@@ -54,10 +47,8 @@ public class Antenna : MonoBehaviour
             {
                 triggerableObject.Deactivate();
             }
-            
-            spriteRenderer.sprite = notTriggeredSprite;
 
-            triggered = false;
+            spriteRenderer.sprite = notTriggeredSprite;
         }
     }
 

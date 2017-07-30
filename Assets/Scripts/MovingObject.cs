@@ -13,11 +13,22 @@ public class MovingObject : ATriggerable {
 
     public override void Activate()
     {
+        activated = true;
+        numberOfTimesActivated++;
+
         transform.position = endPosition;
     }
 
     public override void Deactivate()
     {
-        transform.position = startPosition;
+        numberOfTimesActivated--;
+
+        if (numberOfTimesActivated <= 0)
+        {
+            activated = false;
+            numberOfTimesActivated = 0;
+
+            transform.position = startPosition;
+        }
     }
 }

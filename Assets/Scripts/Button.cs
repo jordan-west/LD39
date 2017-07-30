@@ -19,6 +19,8 @@ public class Button : MonoBehaviour {
 
     private SpriteRenderer spriteRenderer;
 
+    private int numberOfTriggers = 0;
+
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -26,24 +28,34 @@ public class Button : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (triggerableObject != null)
+        if (numberOfTriggers == 0)
         {
-            triggerableObject.Activate();
+            if (triggerableObject != null)
+            {
+                triggerableObject.Activate();
+            }
+
+            spriteRenderer.sprite = triggeredSprite;
         }
 
-        spriteRenderer.sprite = triggeredSprite;
+        numberOfTriggers++;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (permanentTrigger == false)
         {
-            if (triggerableObject != null)
+            if (numberOfTriggers == 1)
             {
-                triggerableObject.Deactivate();
+                if (triggerableObject != null)
+                {
+                    triggerableObject.Deactivate();
+                }
+                
+                spriteRenderer.sprite = notTriggeredSprite;
             }
 
-            spriteRenderer.sprite = notTriggeredSprite;
+            numberOfTriggers--;
         }
         
     }
