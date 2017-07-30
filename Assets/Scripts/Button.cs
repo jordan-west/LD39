@@ -2,30 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
 public class Button : MonoBehaviour {
 
     [SerializeField]
     private ATriggerable triggerableObject;
 
     [SerializeField]
-    private bool permenantTrigger = false;
+    private Sprite triggeredSprite;
 
-    private float debounceTime = 1f;
+    [SerializeField]
+    private Sprite notTriggeredSprite;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    [SerializeField]
+    private bool permanentTrigger = false;
+
+    private SpriteRenderer spriteRenderer;
+
+    private void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         triggerableObject.Activate();
-        StartCoroutine(Debounce(debounceTime));
+        spriteRenderer.sprite = triggeredSprite;
+        
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if (permenantTrigger == false)
+        if (permanentTrigger == false)
+        {
             triggerableObject.Deactivate();
-    }
-
-    private IEnumerator Debounce(float seconds)
-    {
-        yield return new WaitForSeconds(seconds);
+            spriteRenderer.sprite = notTriggeredSprite;
+        }
+        
     }
 }

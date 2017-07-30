@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(Animator))]
 public class PlayerController : MonoBehaviour {
 
     private Rigidbody2D body;
     private Collider2D coll;
+    private Animator animator;
 
     [SerializeField]
     private float horizontalSpeed = 5f;
@@ -21,6 +22,7 @@ public class PlayerController : MonoBehaviour {
     {
         body = GetComponent<Rigidbody2D>();
         coll = GetComponent<Collider2D>();
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -30,9 +32,11 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetButton("Jump") && CheckIfGrounded())
         {
             initiatedJump = true;
+            animator.SetBool("initiatedJump", true);
         } else
         {
             initiatedJump = false;
+            animator.SetBool("initiatedJump", false);
         }
     }
 
@@ -41,6 +45,14 @@ public class PlayerController : MonoBehaviour {
         if (initiatedJump)
         {
             body.velocity = new Vector2(body.velocity.x, jumpVelocity);
+        }
+
+        if (body.velocity.y < 0)
+        {
+            animator.SetBool("falling", true);
+        } else
+        {
+            animator.SetBool("falling", false);
         }
 
         body.velocity = new Vector2(horizontalDirection * horizontalSpeed, body.velocity.y);
