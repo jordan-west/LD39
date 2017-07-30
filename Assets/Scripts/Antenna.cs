@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class Button : MonoBehaviour {
-
+public class Antenna : MonoBehaviour
+{
     [SerializeField]
     private ATriggerable triggerableObject;
 
@@ -17,26 +17,46 @@ public class Button : MonoBehaviour {
     [SerializeField]
     private bool permanentTrigger = false;
 
+    [SerializeField]
+    private float triggeredTime = 1f;
+
     private SpriteRenderer spriteRenderer;
+
+    private bool triggered = false;
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void Activate()
     {
-        triggerableObject.Activate();
-        spriteRenderer.sprite = triggeredSprite;
+        if (!triggered)
+        {
+            triggerableObject.Activate();
+            spriteRenderer.sprite = triggeredSprite;
+
+            triggered = true;
+
+            StartCoroutine(WaitToDeactivate(triggeredTime));
+        }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    public void Deactivate()
     {
         if (permanentTrigger == false)
         {
             triggerableObject.Deactivate();
             spriteRenderer.sprite = notTriggeredSprite;
+
+            triggered = false;
         }
-        
+    }
+
+    private IEnumerator WaitToDeactivate(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+
+        Deactivate();
     }
 }

@@ -2,12 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Assume SpriteRenderer available?
+ */
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(Animator))]
 public class PlayerController : MonoBehaviour {
 
     private Rigidbody2D body;
     private Collider2D coll;
     private Animator animator;
+    private SpriteRenderer spriteRenderer;
+    private LineRenderer lineRenderer;
+
+    private Transform antenna;
+
+    [SerializeField]
+    private LayerMask laserLayerMask;
 
     [SerializeField]
     private float horizontalSpeed = 5f;
@@ -23,11 +33,37 @@ public class PlayerController : MonoBehaviour {
         body = GetComponent<Rigidbody2D>();
         coll = GetComponent<Collider2D>();
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        lineRenderer = GetComponent<LineRenderer>();
+
+        antenna = transform.Find("Antenna");
+
+        lineRenderer.enabled = false;
     }
 
     private void Update()
     {
         horizontalDirection = Input.GetAxisRaw("Horizontal");
+
+        if (horizontalDirection != 0)
+        {
+            animator.SetBool("initiatedRun", true);
+            animator.SetBool("runStop", false);
+
+            if (horizontalDirection > 0)
+            {
+                spriteRenderer.flipX = false;
+            } else
+            {
+                spriteRenderer.flipX = true;
+            }
+        } else
+        {
+            animator.SetBool("initiatedRun", false);
+            animator.SetBool("runStop", true);
+        }
+
+        lineRenderer.SetPosition(0, antenna.position);
 
         if (Input.GetButton("Jump") && CheckIfGrounded())
         {
@@ -37,6 +73,32 @@ public class PlayerController : MonoBehaviour {
         {
             initiatedJump = false;
             animator.SetBool("initiatedJump", false);
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePosition = new Vector3(mousePosition.x, mousePosition.y, 0);
+
+            RaycastHit2D hit = Physics2D.Raycast(antenna.position, mousePosition - antenna.position, 5f, laserLayerMask);
+
+            if (hit)
+            {
+                StartCoroutine(FlashLaser(hit.point, 0.3f));
+
+                if (hit.transform.gameObject.GetComponent<EnemyController>())
+                {
+                    hit.transform.gameObject.GetComponent<EnemyController>().Sleep(3f);
+                }
+
+                if (hit.transform.gameObject.GetComponent<Antenna>())
+                {
+                    hit.transform.gameObject.GetComponent<Antenna>().Activate();
+                }
+            } else
+            {
+                StartCoroutine(FlashLaser(mousePosition, 0.3f));
+            }
         }
     }
 
@@ -65,5 +127,19 @@ public class PlayerController : MonoBehaviour {
             return false;
 
         return Physics2D.Raycast(transform.position - Vector3.up * (coll.bounds.extents.y + 0.01f), Vector2.down, 0.01f);
+    }
+
+    private IEnumerator FlashLaser(Vector3 laserStopPosition, float waitTime)
+    {
+        lineRenderer.SetPosition(1, laserStopPosition);
+        //Debug.Log(laserStopPosition);
+        lineRenderer.startWidth = 0.05f;
+        lineRenderer.endWidth = 0.05f;
+
+        lineRenderer.enabled = true;
+
+        yield return new WaitForSeconds(waitTime);
+
+        lineRenderer.enabled = false;
     }
 }
