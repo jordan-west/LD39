@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour {
             animator.SetBool("initiatedJump", false);
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && body.velocity.y == 0)
         {
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePosition = new Vector3(mousePosition.x, mousePosition.y, 0);
@@ -126,7 +126,7 @@ public class PlayerController : MonoBehaviour {
         if (Mathf.Abs(body.velocity.y) > 0.1f)
             return false;
 
-        return Physics2D.Raycast(transform.position - Vector3.up * (coll.bounds.extents.y + 0.01f), Vector2.down, 0.01f);
+        return Physics2D.Raycast(coll.bounds.center, Vector2.down, coll.bounds.extents.y + 0.1f, laserLayerMask);
     }
 
     private IEnumerator FlashLaser(Vector3 laserStopPosition, float waitTime)

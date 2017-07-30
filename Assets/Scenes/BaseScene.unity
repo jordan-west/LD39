@@ -328,11 +328,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deef09fc5072c434987760f2d70d1629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerableObject: {fileID: 667590718}
+  triggerableObject: {fileID: 1868330831}
   triggeredSprite: {fileID: 21300008, guid: b933f924f0aad7f459c9fabb8b323830, type: 3}
   notTriggeredSprite: {fileID: 21300006, guid: b933f924f0aad7f459c9fabb8b323830, type: 3}
   permanentTrigger: 0
-  triggeredTime: 1
+  triggeredTime: 2
 --- !u!1 &155527743
 GameObject:
   m_ObjectHideFlags: 0
@@ -1105,7 +1105,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 938281346}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3, y: 2.18, z: 0}
+  m_LocalPosition: {x: 4, y: 3.18, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2111737846}
@@ -1248,6 +1248,7 @@ Transform:
   - {fileID: 667590717}
   - {fileID: 140807906}
   - {fileID: 1059203372}
+  - {fileID: 1868330830}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1454,8 +1455,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1868330830}
   - component: {fileID: 1868330829}
+  - component: {fileID: 1868330831}
+  - component: {fileID: 1868330832}
   m_Layer: 0
-  m_Name: Objects_5
+  m_Name: Bridge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1497,7 +1500,7 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
+  m_DrawMode: 2
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
@@ -1509,13 +1512,52 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1868330828}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 6, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 962146217}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1868330831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1868330828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2223bced3a24774e92331bfdb260e85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  notTriggeredSprite: {fileID: 21300010, guid: b933f924f0aad7f459c9fabb8b323830, type: 3}
+  triggeredSprite: {fileID: 21300012, guid: b933f924f0aad7f459c9fabb8b323830, type: 3}
+  length: 3
+--- !u!61 &1868330832
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1868330828}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 2
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.44}
+  m_EdgeRadius: 0
 --- !u!1 &2111737845
 GameObject:
   m_ObjectHideFlags: 0
