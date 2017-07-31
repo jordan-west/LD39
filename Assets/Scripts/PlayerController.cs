@@ -140,7 +140,6 @@ public class PlayerController : MonoBehaviour {
     private IEnumerator FlashLaser(Vector3 laserStopPosition, float waitTime)
     {
         lineRenderer.SetPosition(1, laserStopPosition);
-        Debug.Log(laserStopPosition);
         lineRenderer.startWidth = 0.05f;
         lineRenderer.endWidth = 0.05f;
 

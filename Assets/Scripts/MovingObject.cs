@@ -5,18 +5,26 @@ using UnityEngine;
 
 public class MovingObject : ATriggerable {
 
-    [SerializeField]
     private Vector3 startPosition;
 
     [SerializeField]
     private Vector3 endPosition;
 
+    private void Awake()
+    {
+        startPosition = transform.position;
+    }
+
     public override void Activate()
     {
-        activated = true;
-        numberOfTimesActivated++;
+        if (numberOfTimesActivated == 0)
+        {
+            activated = true;
 
-        transform.position = endPosition;
+            transform.position = endPosition;
+        }
+
+        numberOfTimesActivated++;
     }
 
     public override void Deactivate()
