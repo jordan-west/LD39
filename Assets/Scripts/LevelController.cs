@@ -25,5 +25,8 @@ public class LevelController : MonoBehaviour {
         get {
             return respawnPoint;
         }
+        set {
+            respawnPoint = value;
+        }
     }
 }

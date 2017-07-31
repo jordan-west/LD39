@@ -1,15 +1,26 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TextTrigger : MonoBehaviour {
+public class TextTrigger : ATriggerable {
 
     [SerializeField]
     private string text;
 
     private GameObject TextPanel;
     private Text TextBox;
+
+    public override void Activate()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void Deactivate()
+    {
+        throw new NotImplementedException();
+    }
 
     private void Awake()
     {
@@ -21,6 +32,10 @@ public class TextTrigger : MonoBehaviour {
     {
         TextBox.text = text;
         TextPanel.SetActive(true);
+
+        LevelController.Instance.RespawnPoint = transform.position;
+
+        activated = true;
     }
 
     private void OnTriggerExit2D(Collider2D collision)

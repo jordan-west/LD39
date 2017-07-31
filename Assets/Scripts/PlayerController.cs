@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour {
 
                 if (hit.transform.gameObject.GetComponent<EnemyController>())
                 {
-                    hit.transform.gameObject.GetComponent<EnemyController>().Sleep(3f);
+                    hit.transform.gameObject.GetComponent<EnemyController>().Sleep();
                 }
 
                 if (hit.transform.gameObject.GetComponent<Antenna>())

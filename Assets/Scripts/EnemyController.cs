@@ -20,6 +20,9 @@ public class EnemyController : MonoBehaviour {
     private float wakeTime = 1f;
 
     [SerializeField]
+    private float sleepTime = 3f;
+
+    [SerializeField]
     private Vector3 endPosition;
 
     [SerializeField]
@@ -133,11 +136,11 @@ public class EnemyController : MonoBehaviour {
         }
     }
 
-    public void Sleep(float seconds)
+    public void Sleep()
     {
         if (isAsleep == false)
         {
-            StartCoroutine(SleepCo(seconds));
+            StartCoroutine(SleepCo(sleepTime));
         }   
     }
 

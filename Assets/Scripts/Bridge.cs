@@ -73,8 +73,6 @@ public class Bridge : ATriggerable {
     public void NotifyStoodOn(bool isStoodOn)
     {
         stoodOn = isStoodOn;
-
-        Debug.Log(stoodOn);
     }
 
     private IEnumerator WaitToBeStoodOff()
