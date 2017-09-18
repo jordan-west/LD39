@@ -1,6 +1,6 @@
 ## About
 
-This is my entry for Ludum Dare 39 under the theme "Running out of power". It is my first time taking part, and I definitely ran out of time (see lack of audio and...well, levels). Despite being incomplete, I think this is a solid prototype that demonstrates what I was trying to achieve.
+This is my entry for Ludum Dare 39 under the theme "Running out of power". It is my first time taking part, and I didn't manage to implement everything I was planning to (such as audio and more levels). Despite being incomplete, I think this is a solid prototype that demonstrates what I was trying to achieve.
 
 Power Down is a puzzle platformer where you are a blob with the ability to shoot out a beam from your antenna that is capable of powering down objects that it touches. Using this, you must traverse the levels and solve puzzles by triggering objects.
 
