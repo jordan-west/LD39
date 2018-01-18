@@ -9,3 +9,7 @@ This game was programmed in C# using the [Unity Engine](https://unity3d.com). Ar
 ## Instructions
 
 Use the A and D keys (or arrow keys) to move left and right, and use the spacebar to jump. Use the left mouse button to fire out a beam that disables objects that it touches. Note that you cannot fire your beam whilst in the air.
+
+## Screenshots
+
+![Power Down](screenshots/ld39.png?raw=true)
